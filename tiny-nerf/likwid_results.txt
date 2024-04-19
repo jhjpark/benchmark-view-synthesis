@@ -1,0 +1,812 @@
+--------------------------------------------------------------------------------
+CPU name:	Intel(R) Xeon(R) Platinum 8124M CPU @ 3.00GHz
+CPU type:	Intel Skylake SP processor
+CPU clock:	3.00 GHz
+--------------------------------------------------------------------------------
+0 1.3930951309204103 secs per iter
+25 33.608237981796265 secs per iter
+50 33.263598346710204 secs per iter
+75 33.41543045043945 secs per iter
+100 33.24588235855103 secs per iter
+Done
+--------------------------------------------------------------------------------
+Group 1: MEM_DP
++------------------------------------------+---------+--------------+
+|                   Event                  | Counter |  HWThread 10 |
++------------------------------------------+---------+--------------+
+|             INSTR_RETIRED_ANY            |  FIXC0  | 484092038690 |
+|           CPU_CLK_UNHALTED_CORE          |  FIXC1  | 176639843872 |
+|           CPU_CLK_UNHALTED_REF           |  FIXC2  | 211016006520 |
+|              PWR_PKG_ENERGY              |   PWR0  |       -      |
+|              PWR_DRAM_ENERGY             |   PWR3  |       -      |
+| FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE |   PMC0  |            0 |
+|    FP_ARITH_INST_RETIRED_SCALAR_DOUBLE   |   PMC1  |       814385 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE |   PMC2  |            0 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE |   PMC3  |            0 |
+|               CAS_COUNT_RD               | MBOX0C0 |            0 |
+|               CAS_COUNT_WR               | MBOX0C1 |            0 |
+|               CAS_COUNT_RD               | MBOX1C0 |            0 |
+|               CAS_COUNT_WR               | MBOX1C1 |            0 |
+|               CAS_COUNT_RD               | MBOX2C0 |            0 |
+|               CAS_COUNT_WR               | MBOX2C1 |            0 |
+|               CAS_COUNT_RD               | MBOX3C0 |            0 |
+|               CAS_COUNT_WR               | MBOX3C1 |            0 |
+|               CAS_COUNT_RD               | MBOX4C0 |            0 |
+|               CAS_COUNT_WR               | MBOX4C1 |            0 |
+|               CAS_COUNT_RD               | MBOX5C0 |            0 |
+|               CAS_COUNT_WR               | MBOX5C1 |            0 |
++------------------------------------------+---------+--------------+
+
++-----------------------------------+-------------+
+|               Metric              | HWThread 10 |
++-----------------------------------+-------------+
+|        Runtime (RDTSC) [s]        |    134.0087 |
+|        Runtime unhalted [s]       |     58.8803 |
+|            Clock [MHz]            |   2511.2623 |
+|                CPI                |      0.3649 |
+|             Energy [J]            |           0 |
+|             Power [W]             |           0 |
+|          Energy DRAM [J]          |           0 |
+|           Power DRAM [W]          |           0 |
+|            DP [MFLOP/s]           |      0.0061 |
+|          AVX DP [MFLOP/s]         |           0 |
+|          Packed [MUOPS/s]         |           0 |
+|          Scalar [MUOPS/s]         |      0.0061 |
+|  Memory read bandwidth [MBytes/s] |           0 |
+|  Memory read data volume [GBytes] |           0 |
+| Memory write bandwidth [MBytes/s] |           0 |
+| Memory write data volume [GBytes] |           0 |
+|    Memory bandwidth [MBytes/s]    |           0 |
+|    Memory data volume [GBytes]    |           0 |
+|       Operational intensity       |     inf     |
++-----------------------------------+-------------+
+
+Group 2: TMA
++-----------------------------+---------+--------------+
+|            Event            | Counter |  HWThread 10 |
++-----------------------------+---------+--------------+
+|      INSTR_RETIRED_ANY      |  FIXC0  | 502514519628 |
+|    CPU_CLK_UNHALTED_CORE    |  FIXC1  | 189797564990 |
+|     CPU_CLK_UNHALTED_REF    |  FIXC2  | 225802883520 |
+|       UOPS_ISSUED_ANY       |   PMC0  | 526835866270 |
+|  UOPS_RETIRED_RETIRE_SLOTS  |   PMC1  | 517738521700 |
+| IDQ_UOPS_NOT_DELIVERED_CORE |   PMC2  |  49506772193 |
+|   INT_MISC_RECOVERY_CYCLES  |   PMC3  |   1786545846 |
++-----------------------------+---------+--------------+
+
++----------------------+--------------+
+|        Metric        |  HWThread 10 |
++----------------------+--------------+
+|  Runtime (RDTSC) [s] |     136.0075 |
+| Runtime unhalted [s] |      63.2662 |
+|      Clock [MHz]     |    2521.6218 |
+|          CPI         |       0.3777 |
+|          IPC         |       2.6476 |
+|      Total Slots     | 759190259960 |
+|     Slots Retired    | 517738521700 |
+|     Fetch Bubbles    |  49506772193 |
+|   Recovery Bubbles   |   7146183384 |
+|     Front End [%]    |       6.5210 |
+|    Speculation [%]   |       2.1396 |
+|     Retiring [%]     |      68.1961 |
+|     Back End [%]     |      23.1433 |
++----------------------+--------------+
+
+Group 3: CYCLE_STALLS
++-----------------------------------+---------+--------------+
+|               Event               | Counter |  HWThread 10 |
++-----------------------------------+---------+--------------+
+|         INSTR_RETIRED_ANY         |  FIXC0  | 510910139736 |
+|       CPU_CLK_UNHALTED_CORE       |  FIXC1  | 197185962832 |
+|        CPU_CLK_UNHALTED_REF       |  FIXC2  | 233586694440 |
+|  CYCLE_ACTIVITY_STALLS_L2_PENDING |   PMC0  |  15394456571 |
+| CYCLE_ACTIVITY_STALLS_LDM_PENDING |   PMC1  |  40635445965 |
+| CYCLE_ACTIVITY_STALLS_L1D_PENDING |   PMC2  |  28506200680 |
+|    CYCLE_ACTIVITY_STALLS_TOTAL    |   PMC3  |  43978525256 |
++-----------------------------------+---------+--------------+
+
++----------------------------------------+-------------+
+|                 Metric                 | HWThread 10 |
++----------------------------------------+-------------+
+|           Runtime (RDTSC) [s]          |    136.0083 |
+|          Runtime unhalted [s]          |     65.7290 |
+|               Clock [MHz]              |   2532.4839 |
+|                   CPI                  |      0.3860 |
+|         Total execution stalls         | 43978525256 |
+|     Stalls caused by L1D misses [%]    |     64.8185 |
+|     Stalls caused by L2 misses [%]     |     35.0045 |
+|    Stalls caused by memory loads [%]   |     92.3984 |
+|        Execution stall rate [%]        |     22.3031 |
+|  Stalls caused by L1D misses rate [%]  |     14.4565 |
+|   Stalls caused by L2 misses rate [%]  |      7.8071 |
+| Stalls caused by memory loads rate [%] |     20.6077 |
++----------------------------------------+-------------+
+
+Group 4: L2CACHE
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 579943068164 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 264198113803 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 260795937120 |
+| L2_TRANS_ALL_REQUESTS |   PMC0  |  80293023372 |
+|     L2_RQSTS_MISS     |   PMC1  |   5575055948 |
++-----------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0091 |
+| Runtime unhalted [s] |     88.0665 |
+|      Clock [MHz]     |   3039.1189 |
+|          CPI         |      0.4556 |
+|    L2 request rate   |      0.1384 |
+|     L2 miss rate     |      0.0096 |
+|     L2 miss ratio    |      0.0694 |
++----------------------+-------------+
+
+Group 5: FLOPS_AVX
++------------------------------------------+---------+--------------+
+|                   Event                  | Counter |  HWThread 10 |
++------------------------------------------+---------+--------------+
+|             INSTR_RETIRED_ANY            |  FIXC0  | 464120941560 |
+|           CPU_CLK_UNHALTED_CORE          |  FIXC1  | 177516439577 |
+|           CPU_CLK_UNHALTED_REF           |  FIXC2  | 211835555280 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_SINGLE |   PMC0  |   2692225404 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE |   PMC1  |            0 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_SINGLE |   PMC2  | 400764820122 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE |   PMC3  |            0 |
++------------------------------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0082 |
+| Runtime unhalted [s] |     59.1725 |
+|      Clock [MHz]     |   2513.9609 |
+|          CPI         |      0.3825 |
+|  Packed SP [MFLOP/s] |  47304.3175 |
+|  Packed DP [MFLOP/s] |           0 |
++----------------------+-------------+
+
+Group 6: ENERGY
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 511935526707 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 242182562535 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 240485583720 |
+|       TEMP_CORE       |   TMP0  |       -      |
+|     PWR_PKG_ENERGY    |   PWR0  |       -      |
+|     PWR_PP0_ENERGY    |   PWR1  |       -      |
+|    PWR_DRAM_ENERGY    |   PWR3  |       -      |
++-----------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0108 |
+| Runtime unhalted [s] |     80.7280 |
+|      Clock [MHz]     |   3021.1523 |
+|          CPI         |      0.4731 |
+|    Temperature [C]   |           0 |
+|      Energy [J]      |           0 |
+|       Power [W]      |           0 |
+|    Energy PP0 [J]    |           0 |
+|     Power PP0 [W]    |           0 |
+|    Energy DRAM [J]   |           0 |
+|    Power DRAM [W]    |           0 |
++----------------------+-------------+
+
+Group 7: DATA
++-----------------------------+---------+--------------+
+|            Event            | Counter |  HWThread 10 |
++-----------------------------+---------+--------------+
+|      INSTR_RETIRED_ANY      |  FIXC0  | 509764180088 |
+|    CPU_CLK_UNHALTED_CORE    |  FIXC1  | 237102267074 |
+|     CPU_CLK_UNHALTED_REF    |  FIXC2  | 234561654360 |
+|  MEM_INST_RETIRED_ALL_LOADS |   PMC0  | 179438442040 |
+| MEM_INST_RETIRED_ALL_STORES |   PMC1  |  20574083087 |
++-----------------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0102 |
+| Runtime unhalted [s] |     79.0345 |
+|      Clock [MHz]     |   3032.4768 |
+|          CPI         |      0.4651 |
+|  Load to store ratio |      8.7216 |
++----------------------+-------------+
+
+Group 8: FLOPS_SP
++------------------------------------------+---------+--------------+
+|                   Event                  | Counter |  HWThread 10 |
++------------------------------------------+---------+--------------+
+|             INSTR_RETIRED_ANY            |  FIXC0  | 472025406835 |
+|           CPU_CLK_UNHALTED_CORE          |  FIXC1  | 172794258476 |
+|           CPU_CLK_UNHALTED_REF           |  FIXC2  | 206891494080 |
+| FP_ARITH_INST_RETIRED_128B_PACKED_SINGLE |   PMC0  |            0 |
+|    FP_ARITH_INST_RETIRED_SCALAR_SINGLE   |   PMC1  |       410874 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_SINGLE |   PMC2  |   2244711211 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_SINGLE |   PMC3  | 350348166928 |
++------------------------------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0085 |
+| Runtime unhalted [s] |     57.5984 |
+|      Clock [MHz]     |   2505.5638 |
+|          CPI         |      0.3661 |
+|     SP [MFLOP/s]     |  41346.8936 |
+|   AVX SP [MFLOP/s]   |  41346.8906 |
+|  AVX512 SP [MFLOP/s] |  41214.8570 |
+|   Packed [MUOPS/s]   |   2592.4328 |
+|   Scalar [MUOPS/s]   |      0.0030 |
+|  Vectorization ratio |     99.9999 |
++----------------------+-------------+
+
+Group 9: L2
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 557759232266 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 246040621961 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 244363406160 |
+|    L1D_REPLACEMENT    |   PMC0  |  50565906400 |
+|      L1D_M_EVICT      |   PMC1  |   2797602173 |
+| ICACHE_64B_IFTAG_MISS |   PMC2  |    299612752 |
++-----------------------+---------+--------------+
+
++--------------------------------+-------------+
+|             Metric             | HWThread 10 |
++--------------------------------+-------------+
+|       Runtime (RDTSC) [s]      |    136.0087 |
+|      Runtime unhalted [s]      |     82.0140 |
+|           Clock [MHz]          |   3020.5738 |
+|               CPI              |      0.4411 |
+|  L2D load bandwidth [MBytes/s] |  23794.2008 |
+|  L2D load data volume [GBytes] |   3236.2180 |
+| L2D evict bandwidth [MBytes/s] |   1316.4346 |
+| L2D evict data volume [GBytes] |    179.0465 |
+|     L2 bandwidth [MBytes/s]    |  25251.6206 |
+|     L2 data volume [GBytes]    |   3434.4398 |
++--------------------------------+-------------+
+
+Group 10: BRANCH
++------------------------------+---------+--------------+
+|             Event            | Counter |  HWThread 10 |
++------------------------------+---------+--------------+
+|       INSTR_RETIRED_ANY      |  FIXC0  | 578121362502 |
+|     CPU_CLK_UNHALTED_CORE    |  FIXC1  | 258635187695 |
+|     CPU_CLK_UNHALTED_REF     |  FIXC2  | 256545901920 |
+| BR_INST_RETIRED_ALL_BRANCHES |   PMC0  |  18918534758 |
+| BR_MISP_RETIRED_ALL_BRANCHES |   PMC1  |    127455354 |
++------------------------------+---------+--------------+
+
++----------------------------+-------------+
+|           Metric           | HWThread 10 |
++----------------------------+-------------+
+|     Runtime (RDTSC) [s]    |    136.0084 |
+|    Runtime unhalted [s]    |     86.2122 |
+|         Clock [MHz]        |   3024.4146 |
+|             CPI            |      0.4474 |
+|         Branch rate        |      0.0327 |
+|  Branch misprediction rate |      0.0002 |
+| Branch misprediction ratio |      0.0067 |
+|   Instructions per branch  |     30.5585 |
++----------------------------+-------------+
+
+Group 11: UPI
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 611825254835 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 279246673669 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 275931214800 |
+|   TXL_FLITS_ALL_DATA  | SBOX0C0 |            0 |
+|   RXL_FLITS_ALL_DATA  | SBOX0C1 |            0 |
+|   TXL_FLITS_ALL_DATA  | SBOX1C0 |            0 |
+|   RXL_FLITS_ALL_DATA  | SBOX1C1 |            0 |
+|   TXL_FLITS_ALL_DATA  | SBOX2C0 |            0 |
+|   RXL_FLITS_ALL_DATA  | SBOX2C1 |            0 |
++-----------------------+---------+--------------+
+
++-----------------------------------+-------------+
+|               Metric              | HWThread 10 |
++-----------------------------------+-------------+
+|        Runtime (RDTSC) [s]        |    136.0085 |
+|        Runtime unhalted [s]       |     93.0828 |
+|            Clock [MHz]            |   3036.0294 |
+|                CPI                |      0.4564 |
+| Received data bandwidth [MByte/s] |           0 |
+|    Received data volume [GByte]   |           0 |
+|   Sent data bandwidth [MByte/s]   |           0 |
+|      Sent data volume [GByte]     |           0 |
+|   Total data bandwidth [MByte/s]  |           0 |
+|     Total data volume [GByte]     |           0 |
++-----------------------------------+-------------+
+
+Group 12: CYCLE_ACTIVITY
++-----------------------------------+---------+--------------+
+|               Event               | Counter |  HWThread 10 |
++-----------------------------------+---------+--------------+
+|         INSTR_RETIRED_ANY         |  FIXC0  | 513714322203 |
+|       CPU_CLK_UNHALTED_CORE       |  FIXC1  | 194909916979 |
+|        CPU_CLK_UNHALTED_REF       |  FIXC2  | 231142178160 |
+|  CYCLE_ACTIVITY_CYCLES_L2_PENDING |   PMC0  |  22102723518 |
+| CYCLE_ACTIVITY_CYCLES_LDM_PENDING |   PMC1  | 217184540178 |
+| CYCLE_ACTIVITY_CYCLES_L1D_PENDING |   PMC2  |  59949138617 |
+|  CYCLE_ACTIVITY_CYCLES_NO_EXECUTE |   PMC3  |  42633877804 |
++-----------------------------------+---------+--------------+
+
++--------------------------------------------------+-------------+
+|                      Metric                      | HWThread 10 |
++--------------------------------------------------+-------------+
+|                Runtime (RDTSC) [s]               |    136.0081 |
+|               Runtime unhalted [s]               |     64.9703 |
+|                    Clock [MHz]                   |   2529.7263 |
+|                        CPI                       |      0.3794 |
+|           Cycles without execution [%]           |     21.8736 |
+|      Cycles without execution due to L1D [%]     |     30.7574 |
+|      Cycles without execution due to L2 [%]      |     11.3400 |
+| Cycles without execution due to memory loads [%] |    111.4282 |
++--------------------------------------------------+-------------+
+
+Group 13: CLOCK
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 563509558425 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 255098351488 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 253239115800 |
+|     PWR_PKG_ENERGY    |   PWR0  |       -      |
+|      UNCORE_CLOCK     | UBOXFIX |            0 |
++-----------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0106 |
+| Runtime unhalted [s] |     85.0333 |
+|      Clock [MHz]     |   3022.0084 |
+|  Uncore Clock [MHz]  |           0 |
+|          CPI         |      0.4527 |
+|      Energy [J]      |           0 |
+|       Power [W]      |           0 |
++----------------------+-------------+
+
+Group 14: L3CACHE
++--------------------------+---------+--------------+
+|           Event          | Counter |  HWThread 10 |
++--------------------------+---------+--------------+
+|     INSTR_RETIRED_ANY    |  FIXC0  | 522955571988 |
+|   CPU_CLK_UNHALTED_CORE  |  FIXC1  | 244427760760 |
+|   CPU_CLK_UNHALTED_REF   |  FIXC2  | 242706649080 |
+|  MEM_LOAD_RETIRED_L3_HIT |   PMC0  |     42052846 |
+| MEM_LOAD_RETIRED_L3_MISS |   PMC1  |    339111885 |
+|     UOPS_RETIRED_ALL     |   PMC2  | 559694958759 |
++--------------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0077 |
+| Runtime unhalted [s] |     81.4764 |
+|      Clock [MHz]     |   3021.2569 |
+|          CPI         |      0.4674 |
+|    L3 request rate   |      0.0007 |
+|     L3 miss rate     |      0.0006 |
+|     L3 miss ratio    |      0.8897 |
++----------------------+-------------+
+
+Group 15: TLB_DATA
++---------------------------------+---------+--------------+
+|              Event              | Counter |  HWThread 10 |
++---------------------------------+---------+--------------+
+|        INSTR_RETIRED_ANY        |  FIXC0  | 441349882190 |
+|      CPU_CLK_UNHALTED_CORE      |  FIXC1  | 170546094753 |
+|       CPU_CLK_UNHALTED_REF      |  FIXC2  | 203675987880 |
+|  DTLB_LOAD_MISSES_CAUSES_A_WALK |   PMC0  |    125110003 |
+| DTLB_STORE_MISSES_CAUSES_A_WALK |   PMC1  |    219912574 |
+|   DTLB_LOAD_MISSES_WALK_ACTIVE  |   PMC2  |   3805073306 |
+|  DTLB_STORE_MISSES_WALK_ACTIVE  |   PMC3  |   4883932704 |
++---------------------------------+---------+--------------+
+
++-----------------------------------+-------------+
+|               Metric              | HWThread 10 |
++-----------------------------------+-------------+
+|        Runtime (RDTSC) [s]        |    136.0080 |
+|        Runtime unhalted [s]       |     56.8490 |
+|            Clock [MHz]            |   2512.0064 |
+|                CPI                |      0.3864 |
+|        L1 DTLB load misses        |   125110003 |
+|       L1 DTLB load miss rate      |      0.0003 |
+|  L1 DTLB load miss duration [Cyc] |     30.4138 |
+|        L1 DTLB store misses       |   219912574 |
+|      L1 DTLB store miss rate      |      0.0005 |
+| L1 DTLB store miss duration [Cyc] |     22.2085 |
++-----------------------------------+-------------+
+
+Group 16: UOPS_EXEC
++---------------------------------+-----------------+--------------+
+|              Event              |     Counter     |  HWThread 10 |
++---------------------------------+-----------------+--------------+
+|        INSTR_RETIRED_ANY        |      FIXC0      | 465139975389 |
+|      CPU_CLK_UNHALTED_CORE      |      FIXC1      | 172583939011 |
+|       CPU_CLK_UNHALTED_REF      |      FIXC2      | 206023580160 |
+|    UOPS_EXECUTED_USED_CYCLES    |       PMC0      | 162817733186 |
+|    UOPS_EXECUTED_STALL_CYCLES   |       PMC1      |  44868147725 |
+| CPU_CLOCK_UNHALTED_TOTAL_CYCLES |       PMC2      | 207746370527 |
+|    UOPS_EXECUTED_STALL_CYCLES   | PMC3:EDGEDETECT |   7114561172 |
++---------------------------------+-----------------+--------------+
+
++-----------------------------+-------------+
+|            Metric           | HWThread 10 |
++-----------------------------+-------------+
+|     Runtime (RDTSC) [s]     |    136.0087 |
+|     Runtime unhalted [s]    |     57.5283 |
+|         Clock [MHz]         |   2513.0565 |
+|             CPI             |      0.3710 |
+|    Used cycles ratio [%]    |     78.3733 |
+|   Unused cycles ratio [%]   |     21.5976 |
+| Avg stall duration [cycles] |      6.3065 |
++-----------------------------+-------------+
+
+Group 17: CACHES
++-----------------------+----------+--------------+
+|         Event         |  Counter |  HWThread 10 |
++-----------------------+----------+--------------+
+|   INSTR_RETIRED_ANY   |   FIXC0  | 478858527321 |
+| CPU_CLK_UNHALTED_CORE |   FIXC1  | 174944890129 |
+|  CPU_CLK_UNHALTED_REF |   FIXC2  | 209032782240 |
+|    L1D_REPLACEMENT    |   PMC0   |  43675647831 |
+|      L1D_M_EVICT      |   PMC1   |   2383946702 |
+|    L2_LINES_IN_ALL    |   PMC2   |   4349614527 |
+|     L2_TRANS_L2_WB    |   PMC3   |   3565348954 |
+|  LLC_VICTIMS_M_STATE  |  CBOX0C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX1C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX2C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX3C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX4C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX5C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX6C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX7C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX8C1 |            0 |
+|  LLC_VICTIMS_M_STATE  |  CBOX9C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX10C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX11C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX12C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX13C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX14C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX15C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX16C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX17C1 |            0 |
+|  LLC_VICTIMS_M_STATE  | CBOX18C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX19C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX20C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX21C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX22C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX23C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX24C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX25C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX26C1 |       -      |
+|  LLC_VICTIMS_M_STATE  | CBOX27C1 |       -      |
+|  LLC_LOOKUP_DATA_READ |  CBOX0C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX1C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX2C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX3C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX4C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX5C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX6C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX7C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX8C0 |            0 |
+|  LLC_LOOKUP_DATA_READ |  CBOX9C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX10C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX11C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX12C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX13C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX14C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX15C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX16C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX17C0 |            0 |
+|  LLC_LOOKUP_DATA_READ | CBOX18C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX19C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX20C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX21C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX22C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX23C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX24C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX25C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX26C0 |       -      |
+|  LLC_LOOKUP_DATA_READ | CBOX27C0 |       -      |
+|      CAS_COUNT_RD     |  MBOX0C0 |            0 |
+|      CAS_COUNT_WR     |  MBOX0C1 |            0 |
+|      CAS_COUNT_RD     |  MBOX1C0 |            0 |
+|      CAS_COUNT_WR     |  MBOX1C1 |            0 |
+|      CAS_COUNT_RD     |  MBOX2C0 |            0 |
+|      CAS_COUNT_WR     |  MBOX2C1 |            0 |
+|      CAS_COUNT_RD     |  MBOX3C0 |            0 |
+|      CAS_COUNT_WR     |  MBOX3C1 |            0 |
+|      CAS_COUNT_RD     |  MBOX4C0 |            0 |
+|      CAS_COUNT_WR     |  MBOX4C1 |            0 |
+|      CAS_COUNT_RD     |  MBOX5C0 |            0 |
+|      CAS_COUNT_WR     |  MBOX5C1 |            0 |
++-----------------------+----------+--------------+
+
++----------------------------------------+-------------+
+|                 Metric                 | HWThread 10 |
++----------------------------------------+-------------+
+|           Runtime (RDTSC) [s]          |    136.0080 |
+|          Runtime unhalted [s]          |     58.3153 |
+|               Clock [MHz]              |   2510.7627 |
+|                   CPI                  |      0.3653 |
+|   L2 to L1 load bandwidth [MBytes/s]   |  20552.0342 |
+|   L2 to L1 load data volume [GBytes]   |   2795.2415 |
+|   L1 to L2 evict bandwidth [MBytes/s]  |   1121.7911 |
+|   L1 to L2 evict data volume [GBytes]  |    152.5726 |
+|   L1 to/from L2 bandwidth [MBytes/s]   |  21673.8253 |
+|   L1 to/from L2 data volume [GBytes]   |   2947.8141 |
+|   L3 to L2 load bandwidth [MBytes/s]   |   2046.7567 |
+|   L3 to L2 load data volume [GBytes]   |    278.3753 |
+|   L2 to L3 evict bandwidth [MBytes/s]  |   1677.7123 |
+|   L2 to L3 evict data volume [GBytes]  |    228.1823 |
+|   L2 to/from L3 bandwidth [MBytes/s]   |   3724.4691 |
+|   L2 to/from L3 data volume [GBytes]   |    506.5577 |
+|    System to L3 bandwidth [MBytes/s]   |           0 |
+|    System to L3 data volume [GBytes]   |           0 |
+|    L3 to system bandwidth [MBytes/s]   |           0 |
+|    L3 to system data volume [GBytes]   |           0 |
+| L3 to/from system bandwidth [MBytes/s] |           0 |
+| L3 to/from system data volume [GBytes] |           0 |
+|    Memory read bandwidth [MBytes/s]    |           0 |
+|    Memory read data volume [GBytes]    |           0 |
+|    Memory write bandwidth [MBytes/s]   |           0 |
+|    Memory write data volume [GBytes]   |           0 |
+|       Memory bandwidth [MBytes/s]      |           0 |
+|       Memory data volume [GBytes]      |           0 |
++----------------------------------------+-------------+
+
+Group 18: FLOPS_DP
++------------------------------------------+---------+--------------+
+|                   Event                  | Counter |  HWThread 10 |
++------------------------------------------+---------+--------------+
+|             INSTR_RETIRED_ANY            |  FIXC0  | 490177385958 |
+|           CPU_CLK_UNHALTED_CORE          |  FIXC1  | 181051767048 |
+|           CPU_CLK_UNHALTED_REF           |  FIXC2  | 216112422240 |
+| FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE |   PMC0  |            0 |
+|    FP_ARITH_INST_RETIRED_SCALAR_DOUBLE   |   PMC1  |       897686 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE |   PMC2  |            0 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE |   PMC3  |            0 |
++------------------------------------------+---------+--------------+
+
++----------------------+-------------+
+|        Metric        | HWThread 10 |
++----------------------+-------------+
+|  Runtime (RDTSC) [s] |    136.0076 |
+| Runtime unhalted [s] |     60.3509 |
+|      Clock [MHz]     |   2513.2856 |
+|          CPI         |      0.3694 |
+|     DP [MFLOP/s]     |      0.0066 |
+|   AVX DP [MFLOP/s]   |           0 |
+|  AVX512 DP [MFLOP/s] |           0 |
+|   Packed [MUOPS/s]   |           0 |
+|   Scalar [MUOPS/s]   |      0.0066 |
+|  Vectorization ratio |           0 |
++----------------------+-------------+
+
+Group 19: L3
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 508783893080 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 194326323332 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 230730150960 |
+|    L2_LINES_IN_ALL    |   PMC0  |   5054847015 |
+|     L2_TRANS_L2_WB    |   PMC1  |   4980558036 |
+| IDI_MISC_WB_DOWNGRADE |   PMC2  |   3341716958 |
+|  IDI_MISC_WB_UPGRADE  |   PMC3  |   1147403165 |
++-----------------------+---------+--------------+
+
++-----------------------------------+-------------+
+|               Metric              | HWThread 10 |
++-----------------------------------+-------------+
+|        Runtime (RDTSC) [s]        |    136.0075 |
+|        Runtime unhalted [s]       |     64.7758 |
+|            Clock [MHz]            |   2526.6558 |
+|                CPI                |      0.3819 |
+|    L3 load bandwidth [MBytes/s]   |   2378.6208 |
+|    L3 load data volume [GBytes]   |    323.5102 |
+|   L3 evict bandwidth [MBytes/s]   |    539.9247 |
+|   L3 evict data volume [GBytes]   |     73.4338 |
+| L3|MEM evict bandwidth [MBytes/s] |   2343.6632 |
+| L3|MEM evict data volume [GBytes] |    318.7557 |
+|  Dropped CLs bandwidth [MBytes/s] |   1572.4862 |
+|  Dropped CLs data volume [GBytes] |    213.8699 |
+|      L3 bandwidth [MBytes/s]      |   4722.2839 |
+|      L3 data volume [GBytes]      |    642.2659 |
++-----------------------------------+-------------+
+
+Group 20: UOPS_ISSUE
++---------------------------------+-----------------+--------------+
+|              Event              |     Counter     |  HWThread 10 |
++---------------------------------+-----------------+--------------+
+|        INSTR_RETIRED_ANY        |      FIXC0      | 527567365999 |
+|      CPU_CLK_UNHALTED_CORE      |      FIXC1      | 199856981269 |
+|       CPU_CLK_UNHALTED_REF      |      FIXC2      | 237027463680 |
+|     UOPS_ISSUED_USED_CYCLES     |       PMC0      | 142373797338 |
+|     UOPS_ISSUED_STALL_CYCLES    |       PMC1      |  98096724376 |
+| CPU_CLOCK_UNHALTED_TOTAL_CYCLES |       PMC2      | 240482564247 |
+|     UOPS_ISSUED_STALL_CYCLES    | PMC3:EDGEDETECT |  16023701458 |
++---------------------------------+-----------------+--------------+
+
++-----------------------------+-------------+
+|            Metric           | HWThread 10 |
++-----------------------------+-------------+
+|     Runtime (RDTSC) [s]     |    136.0085 |
+|     Runtime unhalted [s]    |     66.6194 |
+|         Clock [MHz]         |   2529.5278 |
+|             CPI             |      0.3788 |
+|    Used cycles ratio [%]    |     59.2034 |
+|   Unused cycles ratio [%]   |     40.7916 |
+| Avg stall duration [cycles] |      6.1220 |
++-----------------------------+-------------+
+
+Group 21: MEM
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 583598452123 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 265104691225 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 262384938960 |
+|      CAS_COUNT_RD     | MBOX0C0 |            0 |
+|      CAS_COUNT_WR     | MBOX0C1 |            0 |
+|      CAS_COUNT_RD     | MBOX1C0 |            0 |
+|      CAS_COUNT_WR     | MBOX1C1 |            0 |
+|      CAS_COUNT_RD     | MBOX2C0 |            0 |
+|      CAS_COUNT_WR     | MBOX2C1 |            0 |
+|      CAS_COUNT_RD     | MBOX3C0 |            0 |
+|      CAS_COUNT_WR     | MBOX3C1 |            0 |
+|      CAS_COUNT_RD     | MBOX4C0 |            0 |
+|      CAS_COUNT_WR     | MBOX4C1 |            0 |
+|      CAS_COUNT_RD     | MBOX5C0 |            0 |
+|      CAS_COUNT_WR     | MBOX5C1 |            0 |
++-----------------------+---------+--------------+
+
++-----------------------------------+-------------+
+|               Metric              | HWThread 10 |
++-----------------------------------+-------------+
+|        Runtime (RDTSC) [s]        |    136.0081 |
+|        Runtime unhalted [s]       |     88.3687 |
+|            Clock [MHz]            |   3031.0794 |
+|                CPI                |      0.4543 |
+|  Memory read bandwidth [MBytes/s] |           0 |
+|  Memory read data volume [GBytes] |           0 |
+| Memory write bandwidth [MBytes/s] |           0 |
+| Memory write data volume [GBytes] |           0 |
+|    Memory bandwidth [MBytes/s]    |           0 |
+|    Memory data volume [GBytes]    |           0 |
++-----------------------------------+-------------+
+
+Group 22: DIVIDE
++-----------------------+---------+--------------+
+|         Event         | Counter |  HWThread 10 |
++-----------------------+---------+--------------+
+|   INSTR_RETIRED_ANY   |  FIXC0  | 542034190987 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  | 247872110088 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  | 246520431480 |
+|  ARITH_DIVIDER_COUNT  |   PMC0  |      3413049 |
+|  ARITH_DIVIDER_ACTIVE |   PMC1  |     37504794 |
++-----------------------+---------+--------------+
+
++---------------------------------+-------------+
+|              Metric             | HWThread 10 |
++---------------------------------+-------------+
+|       Runtime (RDTSC) [s]       |    134.2380 |
+|       Runtime unhalted [s]      |     82.6245 |
+|           Clock [MHz]           |   3016.4320 |
+|               CPI               |      0.4573 |
+|       Number of divide ops      |     3413049 |
+| Avg. divide unit usage duration |     10.9886 |
++---------------------------------+-------------+
+
+Group 23: TLB_INSTR
++---------------------------+---------+--------------+
+|           Event           | Counter |  HWThread 10 |
++---------------------------+---------+--------------+
+|     INSTR_RETIRED_ANY     |  FIXC0  | 509218233550 |
+|   CPU_CLK_UNHALTED_CORE   |  FIXC1  | 238302705200 |
+|    CPU_CLK_UNHALTED_REF   |  FIXC2  | 236750353200 |
+| ITLB_MISSES_CAUSES_A_WALK |   PMC0  |     10131810 |
+|  ITLB_MISSES_WALK_ACTIVE  |   PMC1  |    516085348 |
++---------------------------+---------+--------------+
+
++-----------------------------+--------------+
+|            Metric           |  HWThread 10 |
++-----------------------------+--------------+
+|     Runtime (RDTSC) [s]     |     134.0075 |
+|     Runtime unhalted [s]    |      79.4347 |
+|         Clock [MHz]         |    3019.6537 |
+|             CPI             |       0.4680 |
+|        L1 ITLB misses       |     10131810 |
+|      L1 ITLB miss rate      | 1.989679e-05 |
+| L1 ITLB miss duration [Cyc] |      50.9371 |
++-----------------------------+--------------+
+
+Group 24: MEM_SP
++------------------------------------------+---------+--------------+
+|                   Event                  | Counter |  HWThread 10 |
++------------------------------------------+---------+--------------+
+|             INSTR_RETIRED_ANY            |  FIXC0  | 443947200071 |
+|           CPU_CLK_UNHALTED_CORE          |  FIXC1  | 168403935144 |
+|           CPU_CLK_UNHALTED_REF           |  FIXC2  | 200490196800 |
+|              PWR_PKG_ENERGY              |   PWR0  |       -      |
+|              PWR_DRAM_ENERGY             |   PWR3  |       -      |
+| FP_ARITH_INST_RETIRED_128B_PACKED_SINGLE |   PMC0  |        60000 |
+|    FP_ARITH_INST_RETIRED_SCALAR_SINGLE   |   PMC1  |       544644 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_SINGLE |   PMC2  |   2306280674 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_SINGLE |   PMC3  | 321450187649 |
+|               CAS_COUNT_RD               | MBOX0C0 |            0 |
+|               CAS_COUNT_WR               | MBOX0C1 |            0 |
+|               CAS_COUNT_RD               | MBOX1C0 |            0 |
+|               CAS_COUNT_WR               | MBOX1C1 |            0 |
+|               CAS_COUNT_RD               | MBOX2C0 |            0 |
+|               CAS_COUNT_WR               | MBOX2C1 |            0 |
+|               CAS_COUNT_RD               | MBOX3C0 |            0 |
+|               CAS_COUNT_WR               | MBOX3C1 |            0 |
+|               CAS_COUNT_RD               | MBOX4C0 |            0 |
+|               CAS_COUNT_WR               | MBOX4C1 |            0 |
+|               CAS_COUNT_RD               | MBOX5C0 |            0 |
+|               CAS_COUNT_WR               | MBOX5C1 |            0 |
++------------------------------------------+---------+--------------+
+
++-----------------------------------+-------------+
+|               Metric              | HWThread 10 |
++-----------------------------------+-------------+
+|        Runtime (RDTSC) [s]        |    134.0080 |
+|        Runtime unhalted [s]       |     56.1350 |
+|            Clock [MHz]            |   2519.8686 |
+|                CPI                |      0.3793 |
+|             Energy [J]            |           0 |
+|             Power [W]             |           0 |
+|          Energy DRAM [J]          |           0 |
+|           Power DRAM [W]          |           0 |
+|            SP [MFLOP/s]           |  38517.5073 |
+|          AVX SP [MFLOP/s]         |  38517.5014 |
+|          Packed [MUOPS/s]         |   2415.9493 |
+|          Scalar [MUOPS/s]         |      0.0041 |
+|  Memory read bandwidth [MBytes/s] |           0 |
+|  Memory read data volume [GBytes] |           0 |
+| Memory write bandwidth [MBytes/s] |           0 |
+| Memory write data volume [GBytes] |           0 |
+|    Memory bandwidth [MBytes/s]    |           0 |
+|    Memory data volume [GBytes]    |           0 |
+|       Operational intensity       |     inf     |
++-----------------------------------+-------------+
+
+Group 25: UOPS_RETIRE
++---------------------------------+-----------------+--------------+
+|              Event              |     Counter     |  HWThread 10 |
++---------------------------------+-----------------+--------------+
+|        INSTR_RETIRED_ANY        |      FIXC0      | 468561864283 |
+|      CPU_CLK_UNHALTED_CORE      |      FIXC1      | 172418470244 |
+|       CPU_CLK_UNHALTED_REF      |      FIXC2      | 205802816520 |
+|     UOPS_RETIRED_USED_CYCLES    |       PMC0      | 137450263921 |
+|    UOPS_RETIRED_STALL_CYCLES    |       PMC1      |  69970709845 |
+| CPU_CLOCK_UNHALTED_TOTAL_CYCLES |       PMC2      | 207493648601 |
+|    UOPS_RETIRED_STALL_CYCLES    | PMC3:EDGEDETECT |   7339783688 |
++---------------------------------+-----------------+--------------+
+
++-----------------------------+-------------+
+|            Metric           | HWThread 10 |
++-----------------------------+-------------+
+|     Runtime (RDTSC) [s]     |    134.0088 |
+|     Runtime unhalted [s]    |     57.4731 |
+|         Clock [MHz]         |   2513.3402 |
+|             CPI             |      0.3680 |
+|    Used cycles ratio [%]    |     66.2431 |
+|   Unused cycles ratio [%]   |     33.7219 |
+| Avg stall duration [cycles] |      9.5331 |
++-----------------------------+-------------+
+
