@@ -64,7 +64,6 @@ x_range = ((torch.arange(W,dtype=torch.float32,device=device))/W*2-1)*(W/max(H,W
 Y,X = torch.meshgrid(y_range,x_range) # [H,W]
 xy_grid = torch.stack([X,Y],dim=-1).view(-1,2) # [HW,2]
 xy_grid = xy_grid.repeat(1,1,1) # [B,HW,2]
-print(xy_grid.shape)
 
 # Models
 class Sin(torch.nn.Module):
@@ -125,7 +124,6 @@ class NeuralSinAndCosImageFunction(torch.nn.Module):
 
 model = NeuralSinAndCosImageFunction(in_features=2, out_features=3, hidden_features=256, hidden_layers=4)
 model = model.to(device)
-print(model)
 
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=1.e-3)
@@ -138,8 +136,6 @@ criterion = torch.nn.MSELoss()
 model.eval()
 data = Image("images/swan.jpg")
 pred_rgb = model(data.coords)
-plt.imshow(pred_rgb[0].reshape(H, W, 3).detach().cpu().numpy())
-plt.show()
 
 num_epoch = 200
 val_freq = 20
@@ -149,10 +145,9 @@ train_psnrs_sin = []
 test_psnrs_sin = []
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
-progress_loader = tqdm.trange(num_epoch, desc="training", leave=False)
 
 
-for i in progress_loader:
+for i in range(num_epoch):
     for j, (input, gt) in enumerate(trainloader):
         optimizer.zero_grad()
         pred_rgb = model(input)
@@ -161,16 +156,6 @@ for i in progress_loader:
         train_psnr = -10 * loss.log10()
         loss.backward()
         optimizer.step()
-        progress_loader.set_postfix(it=i,psnr="{:.4f}".format(train_psnr))
 
     train_psnrs_sin.append(train_psnr)
 
-    if i % val_freq == 0 and i > 0:
-        with torch.no_grad():
-            val_rgb = model(data.coords)
-            loss = criterion(val_rgb, data.labels)
-            psnr = -10 * loss.log10()
-            test_psnrs_sin.append(psnr)
-            print("Epoch {}.....Test PSNR {}".format(i, psnr))
-            plt.imshow(val_rgb.view(H, W, 3).detach().cpu().numpy())
-            plt.show()

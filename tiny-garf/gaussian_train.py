@@ -64,27 +64,35 @@ x_range = ((torch.arange(W,dtype=torch.float32,device=device))/W*2-1)*(W/max(H,W
 Y,X = torch.meshgrid(y_range,x_range) # [H,W]
 xy_grid = torch.stack([X,Y],dim=-1).view(-1,2) # [HW,2]
 xy_grid = xy_grid.repeat(1,1,1) # [B,HW,2]
-print(xy_grid.shape)
 
 # Models
-class GeLULayer(torch.nn.Module):
-    def __init__(self, in_features, out_features):
+class GaussianLayer(torch.nn.Module):
+    def __init__(self, in_features, out_features, sigma=0.05):
         super().__init__()
-        # self.sigma = sigma
+        self.sigma = sigma
         self.linear = torch.nn.Linear(in_features, out_features)
-        self.relu = torch.nn.GELU()
 
     def forward(self, input):
-        return self.relu(self.linear(input))
+        return self.gaussian(self.linear(input))
 
-# GELU Model
-# Define GeLU Model
-class GeluImageFunction(torch.nn.Module):
-    def __init__(self, in_features=2, out_features=3, hidden_features=256, hidden_layers=4):
+    def gaussian(self, input):
+        """
+        Args:
+            opt
+            x (torch.Tensor [B,num_rays,])
+        """
+        k1 = (-0.5*(input)**2/self.sigma**2).exp()
+        return k1
+
+# Gaussian Model
+# Define Gaussian Model
+class NeuralGaussianImageFunction(torch.nn.Module):
+    def __init__(self, in_features=2, out_features=3, hidden_features=256, hidden_layers=4, sigma=0.05):
         super().__init__()
         self.in_features = in_features
         self.out_features = out_features
         self.hidden_features = hidden_features
+        self.sigma = sigma
         self.hidden_layers = hidden_layers
         self.define_network()
 
@@ -92,9 +100,9 @@ class GeluImageFunction(torch.nn.Module):
     def define_network(self):
         self.mlp = []
 
-        self.mlp.append(GeLULayer(self.in_features, self.hidden_features))
+        self.mlp.append(GaussianLayer(self.in_features, self.hidden_features, sigma=self.sigma))
         for i in range(self.hidden_layers-1):
-            self.mlp.append(GeLULayer(self.hidden_features, self.hidden_features))
+            self.mlp.append(GaussianLayer(self.hidden_features, self.hidden_features, sigma=self.sigma))
 
         self.mlp.append(torch.nn.Linear(self.hidden_features, self.out_features))
         self.mlp = torch.nn.Sequential(*self.mlp)
@@ -103,12 +111,12 @@ class GeluImageFunction(torch.nn.Module):
         rgb = self.mlp(input)
         return rgb
 
-model = GeluImageFunction(in_features=2, out_features=3, hidden_features=256, hidden_layers=4)
+# Init model
+model = NeuralGaussianImageFunction(in_features=2, out_features=3, hidden_features=256, hidden_layers=4, sigma=0.05)
 model = model.to(device)
-print(model)
 
 # Define optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=1.e-3)
+optimizer = torch.optim.Adam(model.parameters(), lr=1.e-4)
 
 # Define MSELoss
 criterion = torch.nn.MSELoss()
@@ -117,23 +125,22 @@ criterion = torch.nn.MSELoss()
 # Visualise initial state
 model.eval()
 data = Image("images/swan.jpg")
-pred_rgb = model(data.coords)
-plt.imshow(pred_rgb[0].reshape(H, W, 3).detach().cpu().numpy())
-plt.show()
+pred_rgb = model(data.get_coords(H, W))
 
+# Setup dataloader
 num_epoch = 200
 val_freq = 20
 model.train()
 
-train_psnrs_gelu = []
-test_psnrs_gelu = []
+train_psnrs_Gaussian = []
+test_psnrs_Gaussian = []
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
-progress_loader = tqdm.trange(num_epoch, desc="training", leave=False)
 
 
-for i in progress_loader:
+for i in range(num_epoch):
     for j, (input, gt) in enumerate(trainloader):
+
         optimizer.zero_grad()
         pred_rgb = model(input)
         loss = criterion(pred_rgb, gt)
@@ -141,16 +148,5 @@ for i in progress_loader:
         train_psnr = -10 * loss.log10()
         loss.backward()
         optimizer.step()
-        progress_loader.set_postfix(it=i,psnr="{:.4f}".format(train_psnr))
 
-    train_psnrs_gelu.append(train_psnr)
-
-    if i % val_freq == 0 and i > 0:
-        with torch.no_grad():
-            val_rgb = model(data.coords)
-            loss = criterion(val_rgb, data.labels)
-            psnr = -10 * loss.log10()
-            test_psnrs_gelu.append(psnr)
-            print("Epoch {}.....Test PSNR {}".format(i, psnr))
-            plt.imshow(val_rgb.view(H, W, 3).detach().cpu().numpy())
-            plt.show()
+    train_psnrs_Gaussian.append(train_psnr)
