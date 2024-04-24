@@ -1,7 +1,6 @@
 from typing import Optional
 import numpy as np
 import torch
-import matplotlib.pyplot as plt
 
 # Helper Functions
 def meshgrid_xy(tensor1: torch.Tensor, tensor2: torch.Tensor) -> (torch.Tensor, torch.Tensor):
@@ -53,11 +52,9 @@ def get_ray_bundle(height: int, width: int, focal_length: float, tform_cam2world
     ray_origins (torch.Tensor): A tensor of shape :math:`(width, height, 3)` denoting the centers of
         each ray. `ray_origins[i][j]` denotes the origin of the ray passing through pixel at
         row index `j` and column index `i`.
-        (TODO: double check if explanation of row and col indices convention is right).
     ray_directions (torch.Tensor): A tensor of shape :math:`(width, height, 3)` denoting the
         direction of each ray (a unit vector). `ray_directions[i][j]` denotes the direction of the ray
         passing through the pixel at row index `j` and column index `i`.
-        (TODO: double check if explanation of row and col indices convention is right).
     """
     ii, jj = meshgrid_xy(
         torch.arange(width).to(tform_cam2world),
@@ -265,29 +262,31 @@ testimg = torch.from_numpy(testimg).to(device)
 # Map images to device
 images = torch.from_numpy(images[:100, ..., :3]).to(device)
 
-# Display the image used for testing
-plt.imshow(testimg.detach().cpu().numpy())
-plt.show()
-
 # Train TinyNeRF!
 
 # One iteration of TinyNeRF (forward pass).
 def run_one_iter_of_tinynerf(height, width, focal_length, tform_cam2world,
                              near_thresh, far_thresh, depth_samples_per_ray,
                              encoding_function, get_minibatches_function):
+    print("start ray bundle")
     # Get the "bundle" of rays through all image pixels.
     ray_origins, ray_directions = get_ray_bundle(height, width, focal_length, tform_cam2world)
+    print("end ray bundle")
 
+    print("start query points")
     # Sample query points along each ray
     query_points, depth_values = compute_query_points_from_rays(
         ray_origins, ray_directions, near_thresh, far_thresh, depth_samples_per_ray
     )
+    print("end query points")
 
     # "Flatten" the query points.
     flattened_query_points = query_points.reshape((-1, 3))
 
+    print("start encoding")
     # Encode the query points (default: positional encoding).
     encoded_points = encoding_function(flattened_query_points)
+    print("end encoding")
 
     # Split the encoded points into "chunks", run the model on all chunks, and
     # concatenate the results (to avoid out-of-memory issues).
@@ -301,8 +300,10 @@ def run_one_iter_of_tinynerf(height, width, focal_length, tform_cam2world,
     unflattened_shape = list(query_points.shape[:-1]) + [4]
     radiance_field = torch.reshape(radiance_field_flattened, unflattened_shape)
 
+    print("start render volume density")
     # Perform differentiable volume rendering to re-synthesize the RGB image.
     rgb_predicted, _, _ = render_volume_density(radiance_field, ray_origins, depth_values)
+    print("end render volume density")
 
     return rgb_predicted
 
@@ -352,19 +353,24 @@ np.random.seed(seed)
 
 
 for i in range(num_iters):
+    print("begin iteration")
     # Randomly pick an image as the target.
     target_img_idx = np.random.randint(images.shape[0])
     target_img = images[target_img_idx].to(device)
     target_tform_cam2world = tform_cam2world[target_img_idx].to(device)
 
     # Run one iteration of TinyNeRF and get the rendered RGB image.
+    print("start run model")
     rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
                                             target_tform_cam2world, near_thresh,
                                             far_thresh, depth_samples_per_ray,
                                             encode, get_minibatches)
+    print("end run model")
 
     # Compute mean-squared error between the predicted and target images. Backprop!
+    print("start backprop")
     loss = torch.nn.functional.mse_loss(rgb_predicted, target_img)
     loss.backward()
     optimizer.step()
+    print("end backprop")
     optimizer.zero_grad()

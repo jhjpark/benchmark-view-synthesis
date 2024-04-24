@@ -4,8 +4,6 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, ToTensor, Normalize
 import PIL.Image
-import matplotlib.pyplot as plt
-import tqdm
 
 # for reproducibility
 import random
@@ -19,11 +17,11 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Setup Data
 
 class Image(Dataset):
-    def __init__(self, image_path, H=100, W=100):
+    def __init__(self, image_path, H=400, W=400):
         super().__init__()
         self.load_image(H=H, W=W)
 
-    def load_image(self, H=100, W=100):
+    def load_image(self, H=400, W=400):
         image_raw = PIL.Image.open('images/swan.jpg')
         tmp =  PIL.Image.new("RGB", image_raw.size, (255, 255, 255))
         if image_raw.mode == 'RGBA':
@@ -57,8 +55,8 @@ class Image(Dataset):
     def __getitem__(self,idx):
         return self.coords[0, idx], self.labels[0, idx]
 
-H = 100
-W = 100
+H = 400
+W = 400
 y_range = ((torch.arange(H,dtype=torch.float32,device=device))/H*2-1)*(H/max(H,W))
 x_range = ((torch.arange(W,dtype=torch.float32,device=device))/W*2-1)*(W/max(H,W))
 Y,X = torch.meshgrid(y_range,x_range) # [H,W]
@@ -66,24 +64,33 @@ xy_grid = torch.stack([X,Y],dim=-1).view(-1,2) # [HW,2]
 xy_grid = xy_grid.repeat(1,1,1) # [B,HW,2]
 
 # Models
-class GeLULayer(torch.nn.Module):
-    def __init__(self, in_features, out_features):
+class GaussianLayer(torch.nn.Module):
+    def __init__(self, in_features, out_features, sigma=0.05):
         super().__init__()
-        # self.sigma = sigma
+        self.sigma = sigma
         self.linear = torch.nn.Linear(in_features, out_features)
-        self.relu = torch.nn.GELU()
 
     def forward(self, input):
-        return self.relu(self.linear(input))
+        return self.gaussian(self.linear(input))
 
-# GELU Model
-# Define GeLU Model
-class GeluImageFunction(torch.nn.Module):
-    def __init__(self, in_features=2, out_features=3, hidden_features=256, hidden_layers=4):
+    def gaussian(self, input):
+        """
+        Args:
+            opt
+            x (torch.Tensor [B,num_rays,])
+        """
+        k1 = (-0.5*(input)**2/self.sigma**2).exp()
+        return k1
+
+# Gaussian Model
+# Define Gaussian Model
+class NeuralGaussianImageFunction(torch.nn.Module):
+    def __init__(self, in_features=2, out_features=3, hidden_features=256, hidden_layers=4, sigma=0.05):
         super().__init__()
         self.in_features = in_features
         self.out_features = out_features
         self.hidden_features = hidden_features
+        self.sigma = sigma
         self.hidden_layers = hidden_layers
         self.define_network()
 
@@ -91,9 +98,9 @@ class GeluImageFunction(torch.nn.Module):
     def define_network(self):
         self.mlp = []
 
-        self.mlp.append(GeLULayer(self.in_features, self.hidden_features))
+        self.mlp.append(GaussianLayer(self.in_features, self.hidden_features, sigma=self.sigma))
         for i in range(self.hidden_layers-1):
-            self.mlp.append(GeLULayer(self.hidden_features, self.hidden_features))
+            self.mlp.append(GaussianLayer(self.hidden_features, self.hidden_features, sigma=self.sigma))
 
         self.mlp.append(torch.nn.Linear(self.hidden_features, self.out_features))
         self.mlp = torch.nn.Sequential(*self.mlp)
@@ -102,11 +109,12 @@ class GeluImageFunction(torch.nn.Module):
         rgb = self.mlp(input)
         return rgb
 
-model = GeluImageFunction(in_features=2, out_features=3, hidden_features=256, hidden_layers=4)
+# Init model
+model = NeuralGaussianImageFunction(in_features=2, out_features=3, hidden_features=256, hidden_layers=4, sigma=0.05)
 model = model.to(device)
 
 # Define optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=1.e-3)
+optimizer = torch.optim.Adam(model.parameters(), lr=1.e-4)
 
 # Define MSELoss
 criterion = torch.nn.MSELoss()
@@ -115,9 +123,10 @@ criterion = torch.nn.MSELoss()
 # Visualise initial state
 model.eval()
 data = Image("images/swan.jpg")
-pred_rgb = model(data.coords)
+pred_rgb = model(data.get_coords(H, W))
 
-num_epoch = 200
+# Setup dataloader
+num_epoch = 1
 val_freq = 20
 model.train()
 

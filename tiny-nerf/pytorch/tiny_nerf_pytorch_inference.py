@@ -1,7 +1,6 @@
 from typing import Optional
 import numpy as np
 import torch
-import matplotlib.pyplot as plt
 
 # Helper Functions
 def meshgrid_xy(tensor1: torch.Tensor, tensor2: torch.Tensor) -> (torch.Tensor, torch.Tensor):
@@ -53,11 +52,9 @@ def get_ray_bundle(height: int, width: int, focal_length: float, tform_cam2world
     ray_origins (torch.Tensor): A tensor of shape :math:`(width, height, 3)` denoting the centers of
         each ray. `ray_origins[i][j]` denotes the origin of the ray passing through pixel at
         row index `j` and column index `i`.
-        (TODO: double check if explanation of row and col indices convention is right).
     ray_directions (torch.Tensor): A tensor of shape :math:`(width, height, 3)` denoting the
         direction of each ray (a unit vector). `ray_directions[i][j]` denotes the direction of the ray
         passing through the pixel at row index `j` and column index `i`.
-        (TODO: double check if explanation of row and col indices convention is right).
     """
     ii, jj = meshgrid_xy(
         torch.arange(width).to(tform_cam2world),
@@ -265,10 +262,6 @@ testimg = torch.from_numpy(testimg).to(device)
 # Map images to device
 images = torch.from_numpy(images[:100, ..., :3]).to(device)
 
-# Display the image used for testing
-plt.imshow(testimg.detach().cpu().numpy())
-plt.show()
-
 # Train TinyNeRF!
 
 # One iteration of TinyNeRF (forward pass).
@@ -356,8 +349,10 @@ target_img_idx = np.random.randint(images.shape[0])
 target_img = images[target_img_idx].to(device)
 target_tform_cam2world = tform_cam2world[target_img_idx].to(device)
 
+print("begin inference")
 # Run one iteration of TinyNeRF and get the rendered RGB image.
 rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
                                         target_tform_cam2world, near_thresh,
                                         far_thresh, depth_samples_per_ray,
                                         encode, get_minibatches)
+print("end inference")

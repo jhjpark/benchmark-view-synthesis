@@ -4,8 +4,6 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, ToTensor, Normalize
 import PIL.Image
-import matplotlib.pyplot as plt
-import tqdm
 
 # for reproducibility
 import random
@@ -128,25 +126,23 @@ data = Image("images/swan.jpg")
 pred_rgb = model(data.get_coords(H, W))
 
 # Setup dataloader
-num_epoch = 200
+num_epoch = 1
 val_freq = 20
 model.train()
-
-train_psnrs_Gaussian = []
-test_psnrs_Gaussian = []
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
 
 for i in range(num_epoch):
     for j, (input, gt) in enumerate(trainloader):
-
         optimizer.zero_grad()
+        print("begin inference")
         pred_rgb = model(input)
+        print("end inference")
         loss = criterion(pred_rgb, gt)
 
         train_psnr = -10 * loss.log10()
+        print("begin backprop")
         loss.backward()
         optimizer.step()
-
-    train_psnrs_Gaussian.append(train_psnr)
+        print("end backprop")

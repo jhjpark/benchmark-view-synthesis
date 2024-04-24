@@ -4,8 +4,6 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, ToTensor, Normalize
 import PIL.Image
-import matplotlib.pyplot as plt
-import tqdm
 
 # for reproducibility
 import random
@@ -117,15 +115,13 @@ model.eval()
 data = Image("images/swan.jpg")
 pred_rgb = model(data.coords)
 
-num_epoch = 200
+num_epoch = 1
 val_freq = 20
 model.train()
 
-train_psnrs_gelu = []
-test_psnrs_gelu = []
-
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
-
 for j, (input, gt) in enumerate(trainloader):
+    print("begin inference")
     pred_rgb = model(input)
+    print("end inference")

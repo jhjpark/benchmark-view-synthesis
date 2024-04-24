@@ -4,8 +4,6 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, ToTensor, Normalize
 import PIL.Image
-import matplotlib.pyplot as plt
-import tqdm
 
 # for reproducibility
 import random
@@ -149,11 +147,9 @@ num_epoch = 200
 val_freq = 20
 model.train()
 
-train_psnrs_gabor = []
-test_psnrs_gabor = []
-
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
-
 for j, (input, gt) in enumerate(trainloader):
+    print("begin inference")
     pred_rgb = model(input)
+    print("end inference")
