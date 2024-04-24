@@ -126,7 +126,7 @@ data = Image("images/swan.jpg")
 pred_rgb = model(data.get_coords(H, W))
 
 # Setup dataloader
-num_epoch = 200
+num_epoch = 1
 val_freq = 20
 model.train()
 
