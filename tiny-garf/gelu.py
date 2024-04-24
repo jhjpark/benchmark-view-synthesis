@@ -24,7 +24,7 @@ class Image(Dataset):
         self.load_image(H=H, W=W)
 
     def load_image(self, H=100, W=100):
-        image_raw = PIL.Image.open('swan.jpg')
+        image_raw = PIL.Image.open('images/swan.jpg')
         tmp =  PIL.Image.new("RGB", image_raw.size, (255, 255, 255))
         if image_raw.mode == 'RGBA':
             r, g, b, a = image_raw.split()
@@ -104,6 +104,7 @@ class GeluImageFunction(torch.nn.Module):
         return rgb
 
 model = GeluImageFunction(in_features=2, out_features=3, hidden_features=256, hidden_layers=4)
+model = model.to(device)
 print(model)
 
 # Define optimizer
@@ -115,7 +116,7 @@ criterion = torch.nn.MSELoss()
 
 # Visualise initial state
 model.eval()
-data = Image("swan.jpg")
+data = Image("images/swan.jpg")
 pred_rgb = model(data.coords)
 plt.imshow(pred_rgb[0].reshape(H, W, 3).detach().cpu().numpy())
 plt.show()

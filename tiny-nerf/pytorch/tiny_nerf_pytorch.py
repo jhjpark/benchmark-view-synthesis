@@ -264,8 +264,6 @@ testimg = torch.from_numpy(testimg).to(device)
 
 # Map images to device
 images = torch.from_numpy(images[:100, ..., :3]).to(device)
-print(height)
-print(width)
 
 # Display the image used for testing
 plt.imshow(testimg.detach().cpu().numpy())
@@ -352,9 +350,6 @@ seed = 9458
 torch.manual_seed(seed)
 np.random.seed(seed)
 
-# Lists to log metrics etc.
-psnrs = []
-iternums = []
 
 for i in range(num_iters):
     # Randomly pick an image as the target.
@@ -374,27 +369,16 @@ for i in range(num_iters):
     optimizer.step()
     optimizer.zero_grad()
 
-    # Display images/plots/stats
-    if i % display_every == 0:
-        # Render the held-out view
-        rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
-                                                testpose, near_thresh,
-                                                far_thresh, depth_samples_per_ray,
-                                                encode, get_minibatches)
-        loss = torch.nn.functional.mse_loss(rgb_predicted, target_img)
-        print("Loss:", loss.item())
-        psnr = -10. * torch.log10(loss)
+# Render the held-out view
+rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
+                                        testpose, near_thresh,
+                                        far_thresh, depth_samples_per_ray,
+                                        encode, get_minibatches)
+loss = torch.nn.functional.mse_loss(rgb_predicted, target_img)
+print("Loss:", loss.item())
 
-        psnrs.append(psnr.item())
-        iternums.append(i)
-
-        plt.figure(figsize=(10, 4))
-        plt.subplot(121)
-        plt.imshow(rgb_predicted.detach().cpu().numpy())
-        plt.title(f"Iteration {i}")
-        plt.subplot(122)
-        plt.plot(iternums, psnrs)
-        plt.title("PSNR")
-        plt.show()
-
+plt.figure(figsize=(10, 4))
+plt.imshow(rgb_predicted.detach().cpu().numpy())
+plt.title(f"Final")
+plt.show()
 print('Done!')
