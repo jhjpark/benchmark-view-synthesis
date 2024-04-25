@@ -126,7 +126,7 @@ data = Image("images/swan.jpg")
 pred_rgb = model(data.get_coords(H, W))
 
 # Setup dataloader
-num_epoch = 100
+num_epoch = 4
 val_freq = 20
 model.train()
 
@@ -138,7 +138,7 @@ with torch.autograd.profiler.emit_nvtx():
             optimizer.zero_grad()
             pred_rgb = model(input)
             loss = criterion(pred_rgb, gt)
-    
+
             train_psnr = -10 * loss.log10()
             loss.backward()
             optimizer.step()

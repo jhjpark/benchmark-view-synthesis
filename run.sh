@@ -32,4 +32,3 @@ sudo /usr/local/cuda/bin/nsys profile --force-overwrite=true --trace=cuda,nvtx,o
 echo "BEGIN tiny garf sin";
 sudo /usr/local/cuda-12.1/nsight-compute-2023.1.1/target/linux-desktop-glibc_2_11_3-x64/ncu --config-file off --export /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_sin --force-overwrite --set full /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/sin_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_sin_ncu.out;
 sudo /usr/local/cuda/bin/nsys profile --force-overwrite=true --trace=cuda,nvtx,osrt --python-sampling=true --stats=true --output=/home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_sin /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/sin_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_sin_nsys.out;
-

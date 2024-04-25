@@ -318,7 +318,7 @@ chunksize = 16384  # Use chunksize of about 4096 to fit in ~1.4 GB of GPU memory
 
 # Optimizer parameters
 lr = 5e-3
-num_iters = 1
+num_iters = 4
 
 # Misc parameters
 display_every = 100  # Number of iters after which stats are displayed
@@ -349,10 +349,8 @@ target_img_idx = np.random.randint(images.shape[0])
 target_img = images[target_img_idx].to(device)
 target_tform_cam2world = tform_cam2world[target_img_idx].to(device)
 
-print("begin inference")
 # Run one iteration of TinyNeRF and get the rendered RGB image.
 rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
                                         target_tform_cam2world, near_thresh,
                                         far_thresh, depth_samples_per_ray,
                                         encode, get_minibatches)
-print("end inference")

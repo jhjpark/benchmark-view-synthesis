@@ -143,13 +143,11 @@ model.eval()
 data = Image("images/swan.jpg")
 pred_rgb = model(data.coords)
 
-num_epoch = 1
+num_epoch = 4
 val_freq = 20
 model.train()
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
 for j, (input, gt) in enumerate(trainloader):
-    print("begin inference")
     pred_rgb = model(input)
-    print("end inference")
