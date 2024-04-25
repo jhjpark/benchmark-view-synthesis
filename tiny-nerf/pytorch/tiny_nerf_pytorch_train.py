@@ -1,6 +1,7 @@
 from typing import Optional
 import numpy as np
 import torch
+import nvtx
 
 # Helper Functions
 def meshgrid_xy(tensor1: torch.Tensor, tensor2: torch.Tensor) -> (torch.Tensor, torch.Tensor):
@@ -265,6 +266,7 @@ images = torch.from_numpy(images[:100, ..., :3]).to(device)
 # Train TinyNeRF!
 
 # One iteration of TinyNeRF (forward pass).
+@nvtx.annotate("iteration")
 def run_one_iter_of_tinynerf(height, width, focal_length, tform_cam2world,
                              near_thresh, far_thresh, depth_samples_per_ray,
                              encoding_function, get_minibatches_function):
@@ -326,7 +328,7 @@ chunksize = 16384  # Use chunksize of about 4096 to fit in ~1.4 GB of GPU memory
 
 # Optimizer parameters
 lr = 5e-3
-num_iters = 1
+num_iters = 100
 
 # Misc parameters
 display_every = 100  # Number of iters after which stats are displayed
@@ -336,6 +338,7 @@ Model
 """
 model = VeryTinyNerfModel(num_encoding_functions=num_encoding_functions)
 model.to(device)
+print(sum(p.numel() for p in model.parameters() if p.requires_grad))
 
 """
 Optimizer
@@ -351,26 +354,21 @@ seed = 9458
 torch.manual_seed(seed)
 np.random.seed(seed)
 
-
-for i in range(num_iters):
-    print("begin iteration")
-    # Randomly pick an image as the target.
-    target_img_idx = np.random.randint(images.shape[0])
-    target_img = images[target_img_idx].to(device)
-    target_tform_cam2world = tform_cam2world[target_img_idx].to(device)
-
-    # Run one iteration of TinyNeRF and get the rendered RGB image.
-    print("start run model")
-    rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
-                                            target_tform_cam2world, near_thresh,
-                                            far_thresh, depth_samples_per_ray,
-                                            encode, get_minibatches)
-    print("end run model")
-
-    # Compute mean-squared error between the predicted and target images. Backprop!
-    print("start backprop")
-    loss = torch.nn.functional.mse_loss(rgb_predicted, target_img)
-    loss.backward()
-    optimizer.step()
-    print("end backprop")
-    optimizer.zero_grad()
+with torch.autograd.profiler.emit_nvtx():
+    for i in range(num_iters):
+        # Randomly pick an image as the target.
+        target_img_idx = np.random.randint(images.shape[0])
+        target_img = images[target_img_idx].to(device)
+        target_tform_cam2world = tform_cam2world[target_img_idx].to(device)
+    
+        # Run one iteration of TinyNeRF and get the rendered RGB image.
+        rgb_predicted = run_one_iter_of_tinynerf(height, width, focal_length,
+                                                target_tform_cam2world, near_thresh,
+                                                far_thresh, depth_samples_per_ray,
+                                                encode, get_minibatches)
+    
+        # Compute mean-squared error between the predicted and target images. Backprop!
+        loss = torch.nn.functional.mse_loss(rgb_predicted, target_img)
+        loss.backward()
+        optimizer.step()
+        optimizer.zero_grad()

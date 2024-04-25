@@ -117,23 +117,19 @@ model.eval()
 data = Image("images/swan.jpg")
 pred_rgb = model(data.coords)
 
-num_epoch = 1
+num_epoch = 100
 val_freq = 20
 model.train()
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
+with torch.autograd.profiler.emit_nvtx():
+    for i in range(num_epoch):
+        for j, (input, gt) in enumerate(trainloader):
+            optimizer.zero_grad()
+            pred_rgb = model(input)
+            loss = criterion(pred_rgb, gt)
 
-for i in range(num_epoch):
-    for j, (input, gt) in enumerate(trainloader):
-        optimizer.zero_grad()
-        print("begin inference")
-        pred_rgb = model(input)
-        print("end inference")
-        loss = criterion(pred_rgb, gt)
-
-        train_psnr = -10 * loss.log10()
-        print("begin backprop")
-        loss.backward()
-        optimizer.step()
-        print("end backprop")
+            train_psnr = -10 * loss.log10()
+            loss.backward()
+            optimizer.step()
