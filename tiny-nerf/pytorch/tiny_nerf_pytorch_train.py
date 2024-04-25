@@ -270,25 +270,19 @@ images = torch.from_numpy(images[:100, ..., :3]).to(device)
 def run_one_iter_of_tinynerf(height, width, focal_length, tform_cam2world,
                              near_thresh, far_thresh, depth_samples_per_ray,
                              encoding_function, get_minibatches_function):
-    print("start ray bundle")
     # Get the "bundle" of rays through all image pixels.
     ray_origins, ray_directions = get_ray_bundle(height, width, focal_length, tform_cam2world)
-    print("end ray bundle")
 
-    print("start query points")
     # Sample query points along each ray
     query_points, depth_values = compute_query_points_from_rays(
         ray_origins, ray_directions, near_thresh, far_thresh, depth_samples_per_ray
     )
-    print("end query points")
 
     # "Flatten" the query points.
     flattened_query_points = query_points.reshape((-1, 3))
 
-    print("start encoding")
     # Encode the query points (default: positional encoding).
     encoded_points = encoding_function(flattened_query_points)
-    print("end encoding")
 
     # Split the encoded points into "chunks", run the model on all chunks, and
     # concatenate the results (to avoid out-of-memory issues).
@@ -302,10 +296,8 @@ def run_one_iter_of_tinynerf(height, width, focal_length, tform_cam2world,
     unflattened_shape = list(query_points.shape[:-1]) + [4]
     radiance_field = torch.reshape(radiance_field_flattened, unflattened_shape)
 
-    print("start render volume density")
     # Perform differentiable volume rendering to re-synthesize the RGB image.
     rgb_predicted, _, _ = render_volume_density(radiance_field, ray_origins, depth_values)
-    print("end render volume density")
 
     return rgb_predicted
 
@@ -328,7 +320,7 @@ chunksize = 16384  # Use chunksize of about 4096 to fit in ~1.4 GB of GPU memory
 
 # Optimizer parameters
 lr = 5e-3
-num_iters = 100
+num_iters = 4
 
 # Misc parameters
 display_every = 100  # Number of iters after which stats are displayed
@@ -338,7 +330,6 @@ Model
 """
 model = VeryTinyNerfModel(num_encoding_functions=num_encoding_functions)
 model.to(device)
-print(sum(p.numel() for p in model.parameters() if p.requires_grad))
 
 """
 Optimizer
