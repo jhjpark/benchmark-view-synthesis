@@ -7,11 +7,11 @@ cd ../..;
 echo "BEGIN tiny garf gaussian";
 cd tiny-garf;
 sudo /usr/local/cuda-12.1/nsight-compute-2023.1.1/target/linux-desktop-glibc_2_11_3-x64/ncu --config-file off --export /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian --force-overwrite --set full /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gaussian_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_ncu.out;
-nsys profile --stats=true --output=/home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gaussian_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_ncu.out;
+nsys profile --stats=true --output=/home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gaussian_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_nsys.out;
 
 echo "BEGIN tiny garf gaussian big";
 sudo /usr/local/cuda-12.1/nsight-compute-2023.1.1/target/linux-desktop-glibc_2_11_3-x64/ncu --config-file off --export /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_big --force-overwrite --set full /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gaussian_big_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_big_ncu.out;
-nsys profile --stats=true --output=/home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_big /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gaussian_big_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_big_ncu.out;
+nsys profile --stats=true --output=/home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_big /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gaussian_big_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gaussian_big_nsys.out;
 
 echo "BEGIN tiny garf gelu";
 sudo /usr/local/cuda-12.1/nsight-compute-2023.1.1/target/linux-desktop-glibc_2_11_3-x64/ncu --config-file off --export /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gelu --force-overwrite --set full /opt/conda/bin/python /home/ubuntu/cs246-project/tiny-garf/gelu_train.py >> /home/ubuntu/cs246-project/tiny-garf/output/tiny_garf_gelu_ncu.out;
