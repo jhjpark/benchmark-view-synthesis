@@ -4,8 +4,6 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, ToTensor, Normalize
 import PIL.Image
-import matplotlib.pyplot as plt
-import tqdm
 
 # for reproducibility
 import random
@@ -117,7 +115,7 @@ model.eval()
 data = Image("images/swan.jpg")
 pred_rgb = model(data.coords)
 
-num_epoch = 100
+num_epoch = 4
 val_freq = 20
 model.train()
 
