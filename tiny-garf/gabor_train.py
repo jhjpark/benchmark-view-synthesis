@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, ToTensor, Normalize
 import PIL.Image
+import nvtx
 
 # for reproducibility
 import random
@@ -122,6 +123,7 @@ class ComplexImageFunction(torch.nn.Module):
         self.mlp.append(torch.nn.Linear(self.hidden_features, self.out_features,dtype=torch.cfloat))
         self.mlp = torch.nn.Sequential(*self.mlp)
 
+    @nvtx.annotate("iteration")
     def forward(self, input):
         rgb = self.mlp(input)
         if self.wavelet == 'gabor':
