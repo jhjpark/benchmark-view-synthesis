@@ -123,5 +123,6 @@ model.train()
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
-for j, (input, gt) in enumerate(trainloader):
-    pred_rgb = model(input)
+with torch.autograd.profiler.emit_nvtx():
+    for j, (input, gt) in enumerate(trainloader):
+        pred_rgb = model(input)

@@ -134,13 +134,13 @@ model.train()
 
 trainloader = DataLoader(data, batch_size=512, shuffle=True)
 
+with torch.autograd.profiler.emit_nvtx():
+    for i in range(num_epoch):
+        for j, (input, gt) in enumerate(trainloader):
+            optimizer.zero_grad()
+            pred_rgb = model(input)
+            loss = criterion(pred_rgb, gt)
 
-for i in range(num_epoch):
-    for j, (input, gt) in enumerate(trainloader):
-        optimizer.zero_grad()
-        pred_rgb = model(input)
-        loss = criterion(pred_rgb, gt)
-
-        train_psnr = -10 * loss.log10()
-        loss.backward()
-        optimizer.step()
+            train_psnr = -10 * loss.log10()
+            loss.backward()
+            optimizer.step()
