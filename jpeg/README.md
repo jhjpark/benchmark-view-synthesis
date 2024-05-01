@@ -9,3 +9,4 @@ Then, this command can be used to decode that binary file to retrieve the origin
 ```
 python decoder.py output/tractor.out   
 ```
+We also included a decoder that simply uses the `simplejpeg` library in `library_decoder.py`.
